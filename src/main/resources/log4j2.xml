@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+	<Properties>
+		<!-- Patron de cada linea: timestamp, thread, nivel, logger, mensaje -->
+		<Property name="LOG_PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</Property>
+
+		<!-- Carpeta donde viven los archivos de log. Es relativo al directorio
+		     desde el que se ejecuta el JAR (cwd). -->
+		<Property name="LOG_DIR">./logs</Property>
+
+		<Property name="LOG_FILE_NAME">ws_services_test</Property>
+	</Properties>
+
+	<Appenders>
+
+		<!-- ====== Consola ====== -->
+		<Console name="Consola" target="SYSTEM_OUT">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+		</Console>
+
+		<!-- ====== Archivo con rotacion cada 30 dias ====== -->
+		<RollingFile name="Archivo"
+		             fileName="${LOG_DIR}/${LOG_FILE_NAME}.log"
+		             filePattern="${LOG_DIR}/${LOG_FILE_NAME}-%d{yyyy-MM-dd}.log">
+			<PatternLayout pattern="${LOG_PATTERN}"/>
+			<Policies>
+				<!-- interval=30 con %d{yyyy-MM-dd} = rotacion cada 30 dias -->
+				<TimeBasedTriggeringPolicy interval="30" modulate="true"/>
+			</Policies>
+		</RollingFile>
+
+	</Appenders>
+
+	<Loggers>
+
+		<!-- Logger para el paquete propio: TRACE para ver TODO durante pruebas.
+		     Cuando vaya a produccion, cambiar a INFO o WARN. -->
+		<Logger name="com.wsst" level="TRACE" additivity="false">
+			<AppenderRef ref="Consola"/>
+			<AppenderRef ref="Archivo"/>
+		</Logger>
+
+		<!-- Spring y Tomcat son ruidosos en INFO, los dejamos en WARN -->
+		<Logger name="org.springframework" level="WARN"/>
+		<Logger name="org.apache.catalina" level="WARN"/>
+		<Logger name="org.apache.coyote" level="WARN"/>
+
+		<!-- Root para todo lo demas -->
+		<Root level="INFO">
+			<AppenderRef ref="Consola"/>
+			<AppenderRef ref="Archivo"/>
+		</Root>
+
+	</Loggers>
+
+</Configuration>

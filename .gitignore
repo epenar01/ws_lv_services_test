@@ -1,0 +1,36 @@
+# ===== Maven / artefactos de build =====
+target/
+build/
+*.war
+
+# ===== Logs en tiempo de ejecucion =====
+logs/
+*.log
+
+# ===== Eclipse =====
+.settings/
+.classpath
+.project
+.factorypath
+.apt_generated/
+
+# ===== IntelliJ IDEA =====
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# ===== VS Code =====
+.vscode/
+
+# ===== Sistema operativo =====
+Thumbs.db
+.DS_Store
+
+# ===== Secretos / credenciales reales =====
+# NO versionar credenciales de PROD ni keystores reales. El unico keystore
+# permitido en el repo es localhost-rsa.jks (cert autofirmado de pruebas).
+# Cuando existan credenciales reales, usar un archivo externo no versionado:
+properties_wsst.local.properties
+*.env
+secrets/
