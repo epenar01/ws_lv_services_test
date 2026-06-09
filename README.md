@@ -215,7 +215,7 @@ wsst.broker.destino.timeout.read.ms=15000
 # ===== Consulta Transacciones Débito Prosa (API Base24) =====
 wsst.prosa.consulta.url=http://172.16.216.113:6000/ConsultaTransacciones/
 wsst.prosa.consulta.auth.user=admin
-wsst.prosa.consulta.auth.password=admin
+wsst.prosa.consulta.auth.password=++++++
 wsst.prosa.consulta.timeout.connect.ms=5000
 wsst.prosa.consulta.timeout.read.ms=15000
 # false = PAN visible en logs (monitoreo) | true = PAN enmascarado (PCI)
@@ -312,9 +312,6 @@ Este repo sigue la convención de nombres de ramas de Liverpool.
 - ⚠️ La respuesta de B24 incluye el **PAN** (`tarjeta`). Por defecto el servicio
   lo deja **visible en logs** para monitoreo (`log.mask.pan=false`). Activar el
   enmascarado (`true`) para cumplir PCI-DSS cuando ya no se necesite ver el PAN.
-- ⚠️ Las credenciales `admin:admin` son de **QA**. **No** versionar credenciales
-  reales de PROD: usar un archivo externo no versionado o variables de entorno
-  (ya contemplado en `.gitignore`).
 - El keystore `localhost-rsa.jks` es un **certificado autofirmado de pruebas**
   (password `changeit`); no usar en producción.
 
