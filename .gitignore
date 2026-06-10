@@ -34,3 +34,7 @@ Thumbs.db
 properties_wsst.local.properties
 *.env
 secrets/
+
+#documentacion
+BROKER_DOC.md
+COMO_CORRER.md
