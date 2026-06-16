@@ -60,6 +60,28 @@ public class Utilities {
 		return sb.toString();
 	}
 
+	/**
+	 * Enmascara un nombre de usuario para los logs: deja visible solo el primer
+	 * caracter y sustituye el resto por asteriscos (admin -> a****). Para valores
+	 * nulos los devuelve tal cual y para los de un caracter o vacios devuelve "*".
+	 * Solo afecta lo que se escribe en el log, nunca el valor real que se usa.
+	 */
+	public static String fnMaskUser(String user) {
+		if (user == null) {
+			return null;
+		}
+		String u = user.trim();
+		if (u.length() <= 1) {
+			return "*";
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append(u.charAt(0));
+		for (int i = 1; i < u.length(); i++) {
+			sb.append('*');
+		}
+		return sb.toString();
+	}
+
 	public static String fnStrCleanExcep(String str) {
 		String result = "";
 

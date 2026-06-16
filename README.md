@@ -160,21 +160,36 @@ El POS **no envía** `Authorization`; el servicio inyecta el header
 
 ## 5. URLs de prueba
 
-### Local (tu máquina, HTTP 7074)
+> 🔄 **Mantener actualizada:** esta sección es la **referencia única de URLs**.
+> Cada vez que se agregue/cambie un endpoint o una URL de destino, actualizar las
+> tablas de abajo (las rutas salen de los `@Path` de `com.wsst.ws_rest` y las URLs
+> de destino de `properties_wsst.properties`).
 
-```bash
-# Health check
-GET  http://localhost:7074/ws_services_test/rest/api/v1/test
+**Base:** `http(s)://<host>:<puerto>/ws_services_test/rest`
 
-# Versión
-GET  http://localhost:7074/ws_services_test/rest/api/v1/test/version
+| Host | Base URL |
+|---|---|
+| Local (HTTP 7074) | `http://localhost:7074/ws_services_test/rest` |
+| Local (HTTPS 7443) | `https://localhost:7443/ws_services_test/rest` |
+| Ambiente (HTTP 7074) | `http://172.16.216.198:7074/ws_services_test/rest` |
 
-# Broker tokenización PCI
-POST http://localhost:7074/ws_services_test/rest/v1/mp/brk/proxy/orden
+### A) URLs de entrada (para consultar el servicio)
 
-# Consulta Transacciones Prosa
-POST http://localhost:7074/ws_services_test/rest/v1/return/ConsultaTransacciones
-```
+| Servicio | Método | Ruta | URL local completa |
+|---|---|---|---|
+| Health check | `GET` | `/api/v1/test` | `http://localhost:7074/ws_services_test/rest/api/v1/test` |
+| Versión | `GET` | `/api/v1/test/version` | `http://localhost:7074/ws_services_test/rest/api/v1/test/version` |
+| Broker tokenización PCI | `POST` | `/v1/mp/brk/proxy/orden` | `http://localhost:7074/ws_services_test/rest/v1/mp/brk/proxy/orden` |
+| Consulta Transacciones Prosa | `POST` | `/v1/return/ConsultaTransacciones` | `http://localhost:7074/ws_services_test/rest/v1/return/ConsultaTransacciones` |
+
+### B) URLs de destino (a dónde reenvía el servicio)
+
+Configuradas en `properties_wsst.properties` — cambian por entorno (QA / PROD).
+
+| Integración | URL destino | Property |
+|---|---|---|
+| Broker PCI | `https://nnigma.liverpool.com.mx:443/get-online-token` | `wsst.broker.destino.url` |
+| Consulta Prosa (B24) | `http://172.16.216.113:6000/ConsultaTransacciones/` | `wsst.prosa.consulta.url` |
 
 ### Flujo en ambiente (según el diagrama)
 
@@ -261,7 +276,7 @@ Detener: `Ctrl + C`. Alternativa de desarrollo: `mvn spring-boot:run`.
 ```
 [a1b2c3d4] CONSULTA-PROSA - REQUEST recibido del POS (ORIGEN)
 [a1b2c3d4] DESTINO URL: http://172.16.216.113:6000/ConsultaTransacciones/
-[a1b2c3d4] Autorizacion: Basic (usuario=admin, password=***)
+[a1b2c3d4] Autorizacion: Basic (usuario=a****, password=***)
 [a1b2c3d4] B24 respondio en 331ms   |   B24 status: 200
 [a1b2c3d4] Resultado: codRespuesta=00 descRespuesta=Registro Encontrado
 [a1b2c3d4] Tx#1 | autorizacion=502865 | monto=5415.0 | rrn=L00741164642 | tarjeta=6275358143008754

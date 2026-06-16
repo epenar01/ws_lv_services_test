@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 import com.wsst.beans.PropertiesForWsServices;
 import com.wsst.memory.Singleton;
+import com.wsst.utils.Utilities;
 
 @Component
 public class InitLoadProperties {
@@ -73,8 +74,8 @@ public class InitLoadProperties {
 			if (prosaUser != null && prosaUser.trim().length() > 0) {
 				p.setProsa_consulta_auth_user(prosaUser.trim());
 			}
-			// El usuario se loguea; la password NUNCA se escribe en el log.
-			logger.info("prosa.consulta.auth.user:" + p.getProsa_consulta_auth_user());
+			// El usuario se loguea enmascarado; la password NUNCA se escribe en el log.
+			logger.info("prosa.consulta.auth.user:" + Utilities.fnMaskUser(p.getProsa_consulta_auth_user()));
 
 			String prosaPass = propert.getProperty("wsst.prosa.consulta.auth.password");
 			if (prosaPass != null && prosaPass.length() > 0) {

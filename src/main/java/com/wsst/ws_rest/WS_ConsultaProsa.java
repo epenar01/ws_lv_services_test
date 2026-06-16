@@ -122,7 +122,7 @@ public class WS_ConsultaProsa {
 
 		logger.info("[" + reqId + "] CONSULTA-PROSA - REENVIANDO a la API B24 (DESTINO)");
 		logger.info("[" + reqId + "] DESTINO URL: " + urlDestino);
-		logger.info("[" + reqId + "] Autorizacion: Basic (usuario=" + authUser + ", password=***)");
+		logger.info("[" + reqId + "] Autorizacion: Basic (usuario=" + Utilities.fnMaskUser(authUser) + ", password=***)");
 		logger.info("[" + reqId + "] Body enviado a B24: " + Utilities.fnQuitarSaltosTab(jsonOrigen));
 
 		// 3. Reenvio a B24 con el header Authorization inyectado
